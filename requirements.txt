@@ -3,6 +3,7 @@ bokeh
 fastapi
 fastapi_cache
 matplotlib
+numpy
 pandas
 python-dotenv
 uvicorn[standard]
