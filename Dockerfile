@@ -10,20 +10,19 @@ ADD webpack.config.js /app/webpack.config.js
 ADD src /app/src
 RUN set -x && npm run build
 
-FROM alpine
+FROM python
 
-RUN addgroup -S app --gid 1000 && adduser -S app -G app --uid 1000
+RUN useradd app --uid 1000
 WORKDIR /app
 
 ADD prod/deps.txt /app/prod/deps.txt
-RUN set -x && xargs apk add --no-cache < /app/prod/deps.txt
-
-ADD prod/build.deps.txt /app/prod/build.deps.txt
-ADD requirements.txt /app/requirements.txt
 RUN set -x \
-  && xargs apk add --no-cache --virtual .build-deps < /app/prod/build.deps.txt \
-  && pip3 install -r /app/requirements.txt \
-  && apk del .build-deps
+  && apt-get update -y \
+  && xargs apt-get install -y < /app/prod/deps.txt \
+  && rm -rf /var/lib/apt/lists/*
+
+ADD requirements.txt /app/requirements.txt
+RUN set -x && pip install -r /app/requirements.txt
 
 COPY --from=builder /app/dist /app/dist
 ADD . /app/
