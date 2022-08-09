@@ -12,6 +12,7 @@ RUN set -x && npm run build
 
 FROM alpine
 
+RUN addgroup -S app --gid 1000 && adduser -S app -G app --uid 1000
 WORKDIR /app
 
 ADD prod/deps.txt /app/prod/deps.txt
@@ -26,6 +27,8 @@ RUN set -x \
 
 COPY --from=builder /app/dist /app/dist
 ADD . /app/
+
+RUN set -x && chown app:app -R /app
 
 ENV MODE=production
 
