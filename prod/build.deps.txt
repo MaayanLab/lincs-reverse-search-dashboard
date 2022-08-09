@@ -1,0 +1,8 @@
+g++
+gcc
+jpeg-dev
+make
+py3-numpy-dev
+py3-pip
+python3-dev
+zlib-dev
