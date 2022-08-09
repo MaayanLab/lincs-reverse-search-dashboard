@@ -1,5 +1,4 @@
-import React, { Suspense } from 'react'
-import * as Bokeh from '@bokeh/bokehjs'
+import React from 'react'
 import { suspend } from 'suspend-react'
 
 function location_hash()  {
@@ -33,14 +32,18 @@ function Heading({ children }) {
 function Plot({ kind, gene }) {
   const id = React.useState(randid)
   const ref = React.useRef(null)
+  const Bokeh = suspend(async () => {
+    const Bokeh = await import('@bokeh/bokehjs')
+    return Bokeh
+  }, [])
   const plot = suspend(async () => {
     const res = await fetch(`/api/plot/${kind}/${gene}`)
     return await res.json()
   }, [kind, gene])
   React.useEffect(() => {
-    if (!ref.current || !id || !plot) return
+    if (!ref.current || !Bokeh || !id || !plot) return
     Bokeh.embed.embed_item(plot, id)
-  }, [ref.current, id, plot])
+  }, [ref.current, Bokeh, id, plot])
   return <div id={id} ref={ref} />
 }
 
