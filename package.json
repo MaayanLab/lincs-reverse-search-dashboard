@@ -1,0 +1,27 @@
+{
+  "name": "l1000-reverse-search-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:js": "webpack --mode=development -c webpack.config.js -w",
+    "dev:python": "uvicorn app:app --reload",
+    "dev": "npm-run-all --parallel dev:*",
+    "build:js": "webpack --mode=production -c webpack.config.js",
+    "build": "npm-run-all build:*"
+  },
+  "dependencies": {
+    "@bokeh/bokehjs": "^2.4.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "suspend-react": "0.0.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "npm-run-all": "^4.1.5",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}

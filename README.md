@@ -7,4 +7,8 @@ Based on <https://appyters.maayanlab.cloud/L1000_RNAseq_Gene_Search/>, this is a
 ```bash
 # install dependencies
 pip install -r requirements.txt
+npm i
+
+# run in dev mode
+npm run dev
 ```
