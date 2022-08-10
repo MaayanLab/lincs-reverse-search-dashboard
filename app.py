@@ -166,11 +166,6 @@ def make_tables(comb_df, pert: DataKind, direction: Direction):
 
 api = FastAPI()
 
-@api.on_event("startup")
-async def startup():
-  mem = InMemoryBackend()
-  FastAPICache.init(mem)
-
 @api.get('/info/{gene}')
 async def info_gene(gene: str):
   G = await gene_list()
@@ -214,6 +209,11 @@ mode = os.environ.get('MODE', 'development')
 
 app = FastAPI()
 app.mount('/api', api)
+
+@app.on_event("startup")
+async def startup():
+  mem = InMemoryBackend()
+  FastAPICache.init(mem)
 
 if mode == 'development':
   @app.get('/{path:path}', response_class=FileResponse)
