@@ -31,14 +31,11 @@ export default function App() {
       {!gene ? (
         <>
           <Heading>LINCS L1000 Reverse Search</Heading>
-          <p>
+          <p style={{ fontSize: '1em', margin: '0.5em' }}>
             Based off of the <a href="https://appyters.maayanlab.cloud/#/L1000_RNAseq_Gene_Search">RNA-seq-like Gene Centric Signature Reverse Search (RGCSRS)</a> Appyter
             this web application is a dashboard for L1000 Reverse Search results.
           </p>
-          <div style={{ display: 'flex', flexDirection: 'row'  }}>
-            Gene:&nbsp;
-            <Input onSubmit={(gene) => window.location.hash = `#${gene}`} />
-          </div>
+          <Input label="Gene" onSubmit={(gene) => window.location.hash = `#${gene}`} />
         </>
       ) : (
         <>
