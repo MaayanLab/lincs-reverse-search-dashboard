@@ -79,6 +79,17 @@ function Table({ kind, direction, gene, limit }) {
   )
 }
 
+function Input({ onSubmit }) {
+  const [value, setValue] = React.useState('')
+  return (
+    <form onSubmit={evt => { evt.preventDefault(); onSubmit(value) }}>
+      <input value={value} onChange={evt => setValue(evt.currentTarget.value)} />
+      &nbsp;
+      <input type="submit" text="Submit" />
+    </form>
+  )
+}
+
 export default function App() {
   const [gene, setGene] = React.useState(location_hash())
   React.useEffect(() => {
@@ -89,9 +100,6 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
 
-  if (!gene) {
-    return 'Missing gene'
-  }
   return (
     <div style={{
       display: 'flex',
@@ -100,18 +108,34 @@ export default function App() {
       fontWeight: 400,
       margin: 0,
     }}>
-      <Heading>LINCS L1000 Chemical Perturbations Reverse Search for {gene}</Heading>
-      <React.Suspense fallback={"Loading..."}>
-        <Plot gene={gene} kind="cp" />
-        <Table gene={gene} kind="cp" direction="up" limit={10} />
-        <Table gene={gene} kind="cp" direction="down" limit={10} />
-      </React.Suspense>
-      <Heading>LINCS L1000 CRISPR KO Reverse Search for {gene}</Heading>
-      <React.Suspense fallback={"Loading..."}>
-        <Plot gene={gene} kind="xpr" />
-        <Table gene={gene} kind="xpr" direction="up" limit={10} />
-        <Table gene={gene} kind="xpr" direction="down" limit={10} />
-      </React.Suspense>
+      {!gene ? (
+        <>
+          <Heading>LINCS L1000 Reverse Search</Heading>
+          <p>
+            Based off of the <a href="https://appyters.maayanlab.cloud/#/L1000_RNAseq_Gene_Search">RNA-seq-like Gene Centric Signature Reverse Search (RGCSRS)</a> Appyter
+            this web application is a dashboard for L1000 Reverse Search results.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'row'  }}>
+            Gene:&nbsp;
+            <Input onSubmit={(gene) => window.location.hash = `#${gene}`} />
+          </div>
+        </>
+      ) : (
+        <>
+          <Heading>LINCS L1000 Chemical Perturbations Reverse Search for {gene}</Heading>
+          <React.Suspense fallback={"Loading..."}>
+            <Plot gene={gene} kind="cp" />
+            <Table gene={gene} kind="cp" direction="up" limit={10} />
+            <Table gene={gene} kind="cp" direction="down" limit={10} />
+          </React.Suspense>
+          <Heading>LINCS L1000 CRISPR KO Reverse Search for {gene}</Heading>
+          <React.Suspense fallback={"Loading..."}>
+            <Plot gene={gene} kind="xpr" />
+            <Table gene={gene} kind="xpr" direction="up" limit={10} />
+            <Table gene={gene} kind="xpr" direction="down" limit={10} />
+          </React.Suspense>
+        </>
+      )}
     </div>
   )
 }
