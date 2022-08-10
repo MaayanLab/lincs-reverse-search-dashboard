@@ -11,7 +11,7 @@ export default function Heading({ children }) {
       color: 'white',
       fontWeight: '700',
     }}>
-      <img src="static/CFDE-icon-1.png" style={{ height: '2rem' }} />
+      <img src="static/lincslogo.svg" style={{ height: '2rem', margin: '0.25em' }} />
       {children}
     </div>
   )
