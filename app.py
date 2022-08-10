@@ -131,9 +131,9 @@ def make_plot(comb_df, gene: GeneSymbol, pert_type: DataKind):
 
     plot.yaxis.axis_label = 'Abs(CD-Coefficient)'
     plot.xaxis.axis_label = 'log2(Fold Change)'
-    plot.title.text = f"Differential Expression of {gene} in RNA-seq-like {pert_type} Signatures"
-    plot.title.align = 'center'
-    plot.title.text_font_size = '14px'
+    # plot.title.text = f"Differential Expression of {gene} in RNA-seq-like {pert_type} Signatures"
+    # plot.title.align = 'center'
+    # plot.title.text_font_size = '14px'
     return plot
 
 def bokkeh_plot_to_json(plot):

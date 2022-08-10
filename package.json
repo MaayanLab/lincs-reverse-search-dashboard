@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@bokeh/bokehjs": "^2.4.3",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@mui/material": "^5.10.0",
+    "@mui/x-data-grid": "^5.15.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "suspend-react": "0.0.8"
