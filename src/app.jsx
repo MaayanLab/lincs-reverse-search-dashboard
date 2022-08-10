@@ -59,6 +59,7 @@ function Table({ kind, direction, gene, limit }) {
       <table>
         <thead>
           <tr>
+            <th>&nbsp;</th>
             {columns.map(col => (
               <th key={col}>{col}</th>
             ))}
