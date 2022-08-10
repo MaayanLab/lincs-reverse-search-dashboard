@@ -10,15 +10,22 @@ function randid() {
 }
 
 export default function Plot({ kind, gene }) {
-  const id = React.useState(randid)
   const ref = React.useRef(null)
   const plot = suspend(async () => {
+    if (!kind || !gene) return
     const res = await fetch(`/api/plot/${kind}/${gene}`)
     return await res.json()
   }, [kind, gene])
   React.useEffect(() => {
-    if (!ref.current || !id || !plot) return
+    if (!ref.current || !plot) return
+    const id = randid()
+    const div = document.createElement('div')
+    div.id = id
+    ref.current.appendChild(div)
     Bokeh.embed.embed_item(plot, id)
-  }, [ref.current, id, plot])
-  return <div id={id} ref={ref} />
+    return () => {
+      ref.current.removeChild(div)
+    }
+  }, [ref.current, plot])
+  return <div ref={ref} />
 }
