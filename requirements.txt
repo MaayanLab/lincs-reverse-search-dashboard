@@ -1,9 +1,10 @@
 anyio
 bokeh
 fastapi
-fastapi_cache
+fastapi-cache2
 matplotlib
 numpy
 pandas
+pyarrow
 python-dotenv
 uvicorn[standard]
