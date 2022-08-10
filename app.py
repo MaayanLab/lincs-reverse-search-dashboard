@@ -166,6 +166,11 @@ def make_tables(comb_df, pert: DataKind, direction: Direction):
 
 api = FastAPI()
 
+@api.get('/info/')
+async def info():
+  G = await gene_list()
+  return G
+
 @api.get('/info/{gene}')
 async def info_gene(gene: str):
   G = await gene_list()
