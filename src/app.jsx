@@ -51,8 +51,8 @@ export default function App() {
               <Plot gene={gene} kind="cp" />
             </div>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <Table gene={gene} kind="cp" direction="up" limit={10} />
               <Table gene={gene} kind="cp" direction="down" limit={10} />
+              <Table gene={gene} kind="cp" direction="up" limit={10} />
             </div>
           </React.Suspense>
           <Heading>LINCS L1000 CRISPR KO Reverse Search for {gene}</Heading>
@@ -64,8 +64,8 @@ export default function App() {
                 <Plot gene={gene} kind="xpr" />
               </div>
               <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <Table gene={gene} kind="xpr" direction="up" limit={10} />
               <Table gene={gene} kind="xpr" direction="down" limit={10} />
+              <Table gene={gene} kind="xpr" direction="up" limit={10} />
             </div>
           </React.Suspense>
         </>
