@@ -31,4 +31,6 @@ RUN set -x && chown app:app -R /app
 
 ENV MODE=production
 
+EXPOSE 80
+
 CMD ["supervisord", "-n", "-c", "/app/prod/supervisord.conf"]
