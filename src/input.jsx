@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Button = React.lazy(() => '@mui/material/Button')
-const TextField = React.lazy(() => '@mui/material/TextField')
+const Button = React.lazy(() => import('@mui/material/Button'))
+const TextField = React.lazy(() => import('@mui/material/TextField'))
 
 export default function Input({ label, onSubmit }) {
   const [value, setValue] = React.useState('')
