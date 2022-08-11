@@ -145,8 +145,8 @@ def make_tables(comb_df, pert: DataKind, direction: Direction):
     if dir_df.shape[0] == 0: 
         raise HTTPException(status_code=406, detail=f"There are no {'up-regulated' if direction == Direction.up else 'down-regulated'} signatures for the chosen gene and cell line inputs.")
     dir_df = dir_df.sort_values(by='FC', ascending=direction == Direction.down)
-    dir_df['FC'] = dir_df['FC'].apply(lambda x: f'{x:.4f}')
-    dir_df['CD'] = dir_df['CD'].apply(lambda x: f'{x:.4f}')
+    dir_df['FC'] = dir_df['FC']
+    dir_df['CD'] = dir_df['CD']
     if pert == DataKind.xpr:
         dir_df['KO Gene'] = dir_df.index.map(lambda x: x.split('_')[4])
     else:

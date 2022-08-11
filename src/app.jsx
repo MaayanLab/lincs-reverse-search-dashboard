@@ -48,8 +48,44 @@ export default function App() {
               <Plot gene={gene} kind="cp" />
             </div>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <Table gene={gene} kind="cp" direction="down" limit={10} />
-              <Table gene={gene} kind="cp" direction="up" limit={10} />
+              <Table
+                gene={gene}
+                kind="cp"
+                direction="down"
+                columns={[
+                  'Perturbagen',
+                  'Dose',
+                  'Timepoint',
+                  'Cell Line',
+                  'Log2(Fold Change)',
+                  'CD Coefficient',
+                  'Rank in Signature',
+                ]}
+                initialState={{
+                  sorting: {
+                    sortModel: [{ field: 'Log2(Fold Change)', sort: 'asc' }],
+                  },
+                }}
+              />
+              <Table
+                gene={gene}
+                kind="cp"
+                direction="up"
+                columns={[
+                  'Perturbagen',
+                  'Dose',
+                  'Timepoint',
+                  'Cell Line',
+                  'Log2(Fold Change)',
+                  'CD Coefficient',
+                  'Rank in Signature',
+                ]}
+                initialState={{
+                  sorting: {
+                    sortModel: [{ field: 'Log2(Fold Change)', sort: 'desc' }],
+                  },
+                }}
+              />
             </div>
           </React.Suspense>
           <Heading>LINCS L1000 CRISPR KO Reverse Search for {gene}</Heading>
@@ -61,8 +97,42 @@ export default function App() {
                 <Plot gene={gene} kind="xpr" />
               </div>
               <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <Table gene={gene} kind="xpr" direction="down" limit={10} />
-              <Table gene={gene} kind="xpr" direction="up" limit={10} />
+              <Table
+                gene={gene}
+                kind="xpr"
+                direction="down"
+                columns={[
+                  'KO Gene',
+                  'Cell Line',
+                  'Timepoint',
+                  'Log2(Fold Change)',
+                  'CD Coefficient',
+                  'Rank in Signature',
+                ]}
+                initialState={{
+                  sorting: {
+                    sortModel: [{ field: 'Log2(Fold Change)', sort: 'asc' }],
+                  },
+                }}
+              />
+              <Table
+                gene={gene}
+                kind="xpr"
+                direction="up"
+                columns={[
+                  'KO Gene',
+                  'Cell Line',
+                  'Timepoint',
+                  'Log2(Fold Change)',
+                  'CD Coefficient',
+                  'Rank in Signature',
+                ]}
+                initialState={{
+                  sorting: {
+                    sortModel: [{ field: 'Log2(Fold Change)', sort: 'desc' }],
+                  },
+                }}
+              />
             </div>
           </React.Suspense>
         </>
