@@ -1,4 +1,5 @@
 import React from 'react'
+import Skeleton from '@mui/material/Skeleton'
 
 const Plot = React.lazy(() => import('./plot'))
 const Table = React.lazy(() => import('./table'))
@@ -16,12 +17,12 @@ export default function Dashboard({ tab, name, title, gene, kind, columns }) {
         {title}
       </h4>
       <div style={{ alignSelf: 'center' }}>
-        <React.Suspense fallback={"Loading..."}>
+        <React.Suspense fallback={<Skeleton animation="wave" variant="rounded" width={700} height={500} />}>
           <Plot gene={gene} kind={kind} />
         </React.Suspense>
       </div>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <React.Suspense fallback={"Loading..."}>
+        <React.Suspense fallback={<Skeleton animation="wave" variant="rounded" width={'50%'} height={450} />}>
           <Table
             gene={gene}
             kind={kind}
@@ -34,7 +35,7 @@ export default function Dashboard({ tab, name, title, gene, kind, columns }) {
             }}
           />
         </React.Suspense>
-        <React.Suspense fallback={"Loading..."}>
+        <React.Suspense fallback={<Skeleton animation="wave" variant="rounded" width={'50%'} height={450} />}>
           <Table
             gene={gene}
             kind={kind}

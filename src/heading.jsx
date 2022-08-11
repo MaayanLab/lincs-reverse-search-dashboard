@@ -1,8 +1,9 @@
 import React from 'react'
 
-export default function Heading({ children }) {
+export default function Heading({ style, children }) {
   return (
     <div style={{
+      ...(style || {}),
       flex: '1 0 auto',
       display: 'flex',
       alignItems: 'center',

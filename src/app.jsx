@@ -1,4 +1,5 @@
 import React from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const Tab = React.lazy(() => import('@mui/material/Tab'))
 const Tabs = React.lazy(() => import('@mui/material/Tabs'))
@@ -31,11 +32,11 @@ export default function App() {
       display: 'flex',
       flexDirection: 'column',
       justifyItems: 'center',
-      alignItems: 'stretch',
+      alignItems: 'center',
       fontSize: '1rem',
       fontWeight: 400,
     }}>
-      <Heading>{title}</Heading>
+      <Heading style={{ alignSelf: 'stretch' }}>{title}</Heading>
       {!gene ? (
         <>
           <p style={{ fontSize: '1em', margin: '0.5em' }}>
@@ -45,11 +46,12 @@ export default function App() {
           <Input label="Gene" onSubmit={(gene) => window.location.hash = `#${gene}`} />
         </>
       ) : (
-        <React.Suspense fallback={"Loading..."}>
+          <React.Suspense fallback={<CircularProgress style={{ marginTop: 250 }} />}>
           <Tabs value={tab} onChange={(evt, newTab) => setTab(newTab)}>
             <Tab label="Chemical Perturbations" value="Chemical Perturbations" />
             <Tab label="CRISPR KO" value="CRISPR KO" />
           </Tabs>
+          <div style={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column', alignSelf: 'stretch', justifyItems: 'center' }}>
           <Dashboard
             tab={tab}
             gene={gene}
@@ -81,6 +83,7 @@ export default function App() {
               'Rank in Signature',
             ]}
           />
+            </div>
         </React.Suspense>
       )}
     </div>
