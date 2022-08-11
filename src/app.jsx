@@ -45,7 +45,7 @@ export default function App() {
           <Input label="Gene" onSubmit={(gene) => window.location.hash = `#${gene}`} />
         </>
       ) : (
-        <>
+        <React.Suspense fallback={"Loading..."}>
           <Tabs value={tab} onChange={(evt, newTab) => setTab(newTab)}>
             <Tab label="Chemical Perturbations" value="Chemical Perturbations" />
             <Tab label="CRISPR KO" value="CRISPR KO" />
@@ -81,7 +81,7 @@ export default function App() {
               'Rank in Signature',
             ]}
           />
-        </>
+        </React.Suspense>
       )}
     </div>
   )

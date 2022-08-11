@@ -12,14 +12,16 @@ export default function Dashboard({ tab, name, title, gene, kind, columns }) {
         flexDirection: 'column',
       }}
     >
-      <React.Suspense fallback={"Loading..."}>
-        <h4 style={{ fontWeight: 'bold', alignSelf: 'center', marginTop: '0.5em', marginBottom: '0.5em' }}>
-          {title}
-        </h4>
-        <div style={{ alignSelf: 'center' }}>
+      <h4 style={{ fontWeight: 'bold', alignSelf: 'center', marginTop: '0.5em', marginBottom: '0.5em' }}>
+        {title}
+      </h4>
+      <div style={{ alignSelf: 'center' }}>
+        <React.Suspense fallback={"Loading..."}>
           <Plot gene={gene} kind={kind} />
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        </React.Suspense>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <React.Suspense fallback={"Loading..."}>
           <Table
             gene={gene}
             kind={kind}
@@ -31,6 +33,8 @@ export default function Dashboard({ tab, name, title, gene, kind, columns }) {
               },
             }}
           />
+        </React.Suspense>
+        <React.Suspense fallback={"Loading..."}>
           <Table
             gene={gene}
             kind={kind}
@@ -42,8 +46,8 @@ export default function Dashboard({ tab, name, title, gene, kind, columns }) {
               },
             }}
           />
-        </div>
-      </React.Suspense>
+        </React.Suspense>
+      </div>
     </div>
   )
 }
