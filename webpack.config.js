@@ -1,11 +1,7 @@
 const path = require('path')
+const webpack = require('webpack')
 
-module.exports = {
-  entry: './src/index.jsx',
-  output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
+const common = {
   module: {
     rules: [
       {
@@ -23,7 +19,33 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-  },
 }
+
+module.exports = [
+  {
+    target: 'web',
+    entry: './src/client.jsx',
+    output: {
+      filename: 'client.js',
+      path: path.resolve('dist'),
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env.ENDPOINT_URL': '',
+      }),
+    ],
+    ...common,
+  },
+  {
+    target: 'node',
+    entry: './src/server.jsx',
+    output: {
+      filename: 'server.js',
+      path: path.resolve('dist'),
+    },
+    externals: {
+      canvas: 'commonjs canvas',
+    },
+    ...common,
+  }
+]

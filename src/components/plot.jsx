@@ -1,5 +1,4 @@
 import React from 'react'
-import * as Bokeh from '@bokeh/bokehjs'
 import { suspend } from 'suspend-react'
 
 function randid() {
@@ -13,9 +12,10 @@ export default function Plot({ kind, gene }) {
   const ref = React.useRef(null)
   const plot = suspend(async () => {
     if (!kind || !gene) return
-    const res = await fetch(`/api/plot/${kind}/${gene}`)
+    const res = await fetch(`${typeof process !== 'undefined' ? process.env.ENDPOINT_URL : ''}/api/plot/${kind}/${gene}`)
     return await res.json()
   }, [kind, gene])
+  const Bokeh = suspend(async () => import('@bokeh/bokehjs'), [])
   React.useEffect(() => {
     if (!ref.current || !plot) return
     const id = randid()
@@ -26,6 +26,6 @@ export default function Plot({ kind, gene }) {
     return () => {
       ref.current.removeChild(div)
     }
-  }, [ref.current, plot])
+  }, [ref.current, Bokeh, plot])
   return <div ref={ref} />
 }

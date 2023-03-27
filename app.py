@@ -1,4 +1,5 @@
 import os
+import subprocess
 import anyio
 import pathlib
 import functools
@@ -7,7 +8,7 @@ import pandas as pd
 from enum import Enum
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse, FileResponse, StreamingResponse
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
@@ -219,6 +220,29 @@ app.mount('/api', api)
 async def startup():
   mem = InMemoryBackend()
   FastAPICache.init(mem)
+
+import anyio
+from anyio.streams.buffered import BufferedByteReceiveStream
+
+async def ssr(gene):
+  async with await anyio.open_file(str(__directory__ / 'index.html')) as fr:
+    html = await fr.read()
+  pos = html.index('<script src="/dist/client.js"></script>')
+  yield html[:pos]
+  yield '<div id="root">'
+  async with await anyio.open_process([
+    '/bin/node', str(__directory__ / 'dist/server.js'), gene
+  ], env={
+    'ENDPOINT_URL': 'http://localhost:8000',
+  }, stdout=subprocess.PIPE) as proc:
+    async for data in BufferedByteReceiveStream(proc.stdout):
+      yield data
+  yield '</div>'
+  yield html[pos:]
+
+@app.get('/gene/{gene}')
+async def gene(gene: str, response_class=StreamingResponse):
+  return StreamingResponse(ssr(gene))
 
 if mode == 'development':
   @app.get('/{path:path}', response_class=FileResponse)

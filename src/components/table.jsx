@@ -4,7 +4,7 @@ import { suspend } from 'suspend-react'
 
 export default function Table({ kind, direction, gene, limit, columns, ...props }) {
   const table = suspend(async () => {
-    const res = await fetch(`/api/table/${kind}/${direction}/${gene}${limit ? `?limit=${limit}` : ''}`)
+    const res = await fetch(`${typeof process !== 'undefined' ? process.env.ENDPOINT_URL : ''}/api/table/${kind}/${direction}/${gene}${limit ? `?limit=${limit}` : ''}`)
     return await res.json()
   }, [kind, direction, gene, limit])
   if (columns === undefined) columns = Object.keys(table)

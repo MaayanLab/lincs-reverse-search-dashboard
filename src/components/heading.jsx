@@ -12,7 +12,7 @@ export default function Heading({ style, children }) {
       color: 'white',
       fontWeight: '700',
     }}>
-      <img src="static/lincslogo.svg" style={{ height: '2rem', margin: '0.25em' }} />
+      <img src="/static/lincslogo.svg" style={{ height: '2rem', margin: '0.25em' }} />
       {children}
     </div>
   )
