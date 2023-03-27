@@ -1,5 +1,5 @@
 anyio
-bokeh
+bokeh==2.4.3
 fastapi
 fastapi-cache2
 matplotlib

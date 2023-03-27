@@ -3,6 +3,7 @@ FROM node as builder
 WORKDIR /app
 
 ADD package.json /app/package.json
+ADD package-lock.json /app/package-lock.json
 RUN set -x && npm i
 
 ADD .babelrc /app/.babelrc
