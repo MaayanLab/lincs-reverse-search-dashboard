@@ -141,9 +141,9 @@ def bokkeh_plot_to_json(plot):
   return json_item(plot)
 
 def make_tables(comb_df, pert: DataKind, direction: Direction):
-    dir_df = comb_df[comb_df['FC'] > 1] if direction == Direction.up else comb_df[comb_df['FC'] < 1]
-    if dir_df.shape[0] == 0: 
-        raise HTTPException(status_code=406, detail=f"There are no {'up-regulated' if direction == Direction.up else 'down-regulated'} signatures for the chosen gene and cell line inputs.")
+    dir_df = comb_df[comb_df['CD'] > 0] if direction == Direction.up else comb_df[comb_df['CD'] < 0]
+    # if dir_df.shape[0] == 0: 
+    #     raise HTTPException(status_code=406, detail=f"There are no {'up-regulated' if direction == Direction.up else 'down-regulated'} signatures for the chosen gene and cell line inputs.")
     dir_df = dir_df.sort_values(by='FC', ascending=direction == Direction.down)
     dir_df['FC'] = dir_df['FC']
     dir_df['CD'] = dir_df['CD']
