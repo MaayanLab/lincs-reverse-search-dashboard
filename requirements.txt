@@ -3,7 +3,7 @@ bokeh==2.4.3
 fastapi
 fastapi-cache2
 matplotlib
-numpy
+numpy<1.24
 pandas
 pyarrow
 python-dotenv

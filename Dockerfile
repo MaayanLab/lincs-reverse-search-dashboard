@@ -11,7 +11,7 @@ ADD webpack.config.js /app/webpack.config.js
 ADD src /app/src
 RUN set -x && npm run build
 
-FROM python
+FROM python:3.10
 
 RUN useradd app --uid 1000
 WORKDIR /app

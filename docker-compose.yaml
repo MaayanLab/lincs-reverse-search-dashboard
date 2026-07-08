@@ -1,7 +1,7 @@
 services:
   lincs-reverse-search-dashboard-app:
     build: .
-    image: maayanlab/lincs-reverse-search-dashboard:1.0.0
+    image: maayanlab/lincs-reverse-search-dashboard:1.0.1
     platform: linux/amd64
     x-kubernetes:
       annotations:
