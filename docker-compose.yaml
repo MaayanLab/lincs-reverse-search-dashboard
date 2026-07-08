@@ -1,0 +1,13 @@
+services:
+  lincs-reverse-search-dashboard-app:
+    build: .
+    image: maayanlab/lincs-reverse-search-dashboard:1.0.0
+    platform: linux/amd64
+    x-kubernetes:
+      annotations:
+        maayanlab.cloud/ingress: https://lincs-reverse-search-dashboard.k8s.maayanlab.cloud
+    ports:
+    - 80
+
+x-kubernetes:
+  name: lincs-reverse-search-dashboard
